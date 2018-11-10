@@ -4,9 +4,12 @@ class Book extends Component {
     handleOnSelect = (value) => {
         this.props.handleOnSelect(this.props.book,value)
     }
+
+    authors = this.props.book.authors
+    
     render() {
         return (
-            <li key={this.props.book.id}>
+            <li className="books-grid li" key={this.props.book.id}>
                 <div className="book">
                     <div className="book-top">
                         <div className="book-cover" style={{
@@ -15,9 +18,9 @@ class Book extends Component {
                         <BookShelfChanger handleOnSelect={this.handleOnSelect} selectedItem={this.props.book.shelf} />
                     </div>
                     <div className="book-title">{this.props.book.title}</div>
-                    <div className="book-authors">{this.props.book.authors.map((author) => (
+                    <div className="book-authors">{this.authors !== undefined ? this.authors.map((author) => (
                         `${author} `
-                    ))}</div>
+                    )): ""}</div>
                 </div>
             </li>
         )

@@ -1,8 +1,8 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Router from 'react-router-dom'
-import Book from './Book'
+import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Search from './Search'
 import Shelf from './Shelf';
 
@@ -56,36 +56,41 @@ class BooksApp extends React.Component {
       /*This does not seem as efficient to me to refetch everything.  However, update does not give 
       you the same object...  I'd have to iterate through each shelf and touch every book
       */
-
-      this.reFetchData();
+      console.log(book)
+      console.log(value)
+     // this.reFetchData();
     })
   }
 
+
+
   render() {
     return (
-      <div className="app" >
-        {
-          this.state.showSearchPage ? (
-            <Search />
-
-          ) : (
-              <div className="list-books">
-                <div className="list-books-title">
-                  <h1>MyReads</h1>
-                </div>
-                <div className="list-books-content">
-                  <div>
-                    {bookshelves.map(shelf => (
-                      <Shelf key={shelf.key} handleOnSelect={this.handleOnSelect} shelf={shelf} bookObj={this.state.bookObj}></Shelf>
-                    ))}
-                  </div>
-                </div>
-                <div className="open-search">
-                  <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-                </div>
+      <div>
+        <div className="app" ></div>
+        <Route exact path='/' render={() => (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+              <div>
+                {bookshelves.map(shelf => (
+                  <Shelf key={shelf.key} handleOnSelect={this.handleOnSelect} shelf={shelf} bookObj={this.state.bookObj}></Shelf>
+                ))}
               </div>
-            )
-        }
+            </div>
+            <div className="open-search">
+              <Link to="/search">Add a book</Link>
+            </div>
+          </div>
+
+        )} />
+
+        <Route path='/search' render={() => (
+          <Search handleOnSelect={this.handleOnSelect}
+          />)}
+        />
       </div>
     )
   }

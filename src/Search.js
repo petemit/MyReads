@@ -1,31 +1,48 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom'
 import Book from './Book'
 class Search extends Component {
     state = {
         textInput: '',
         searchResults: []
     }
-    handleTextChanged = (event) => {
-        const {value} = event.target
-        this.setState(() => ({
-            textInput: value 
-        }))
-      const results = (BooksAPI.search(value));
 
-      results.then((output) => (
+    performSearch = (value) => {
+        const results = (BooksAPI.search(value));
+
+        results.then((output) => {
+            if (output["error"] === undefined) {
+                this.setState(() => ({
+                    searchResults: output
+                }))
+            } else {
+                console.log(output)
+                this.setState(() => ({
+                    searchResults: []
+                }))
+            }
+
+
+        }
+        )
+    }
+
+    handleTextChanged = (event) => {
+        const { value } = event.target
         this.setState(() => ({
-            searchResults: output 
+            textInput: value
         }))
-       )
-      )
+        if (value !== "") {
+            this.performSearch(value)
+        }
     }
     render() {
         const { textInput } = this.state
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+                    <Link to="/" className="close-search" />
                     <div className="search-books-input-wrapper">
                         {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -43,8 +60,14 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
-                    {this.searchResults.map(book => <Book book={book}/>)}
+                    <ol className="books-grid">
+                        {this.state.searchResults.map(book =>
+                            <Book
+                                key={book.id}
+                                book={book}
+                                handleOnSelect={this.props.handleOnSelect}
+                            />)}
+                    </ol>
                 </div>
             </div>
         )
