@@ -1,0 +1,20 @@
+{
+    "parser": "babel-eslint",
+    "extends":"airbnb",
+    "plugins":[
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+
+    "rules": {
+
+        "linebreak-style": "off",
+        "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off",
+        "react/jsx-filename-extension": "off",
+        "indent":"off",
+        "react/destructuring-assignment" : "off",
+        "prefer-destructuring" : "off"
+    }
+}
