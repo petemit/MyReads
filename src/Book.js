@@ -45,7 +45,7 @@ class Book extends Component {
 }
 
 Book.propTypes = {
-    book: PropTypes.isRequired,
+    book: PropTypes.object.isRequired,
     handleOnSelect: PropTypes.func.isRequired,
 };
 

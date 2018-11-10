@@ -23,8 +23,8 @@ const Shelf = props => (
 );
 
 Shelf.propTypes = {
-    shelf: PropTypes.isRequired,
-    bookObj: PropTypes.isRequired,
+    shelf: PropTypes.object.isRequired,
+    bookObj: PropTypes.object.isRequired,
     handleOnSelect: PropTypes.func.isRequired,
 };
 

@@ -25,7 +25,7 @@ class BookShelfChanger extends Component {
 }
 
 BookShelfChanger.propTypes = {
-    selectedItem: PropTypes.isRequired,
+    selectedItem: PropTypes.string.isRequired,
     handleOnSelect: PropTypes.func.isRequired,
 };
 
